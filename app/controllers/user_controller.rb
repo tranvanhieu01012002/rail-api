@@ -8,8 +8,13 @@ class UserController < ApplicationController
       username:params[:username],
       password:params[:password],
       age:params[:age],
-      job:params[:job]
+      job:params[:job],
+      password_confirmation:params[:password_confirmation]
       )
-    render json: {users: @user}, :status => :created
+    if !@user.valid?
+      render json: {errors: @user.errors.objects.first.full_message} ,:status => :unprocessable_entity
+    else
+      render json: {users: @user}, :status => :created
+    end
   end
 end
