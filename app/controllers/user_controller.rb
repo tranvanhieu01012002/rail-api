@@ -1,6 +1,8 @@
 class UserController < ApplicationController
+  include UserHelper
   def index
-    @users = User.limit(params[:limit])
+    # @users = User.limit(params[:limit])
+    @users = getUsers(params[:limit])
     render json: {users: @users} , :status => :ok
   end
   def create

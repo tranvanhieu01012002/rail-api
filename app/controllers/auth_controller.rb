@@ -1,11 +1,12 @@
 class AuthController < ApplicationController
   def register
     @user = User.create(
-      username:params[:username],
-      password:params[:password],
-      age:params[:age],
-      job:params[:job],
-      password_confirmation:params[:password_confirmation]
+      # username:params[:username],
+      # password:params[:password],
+      # age:params[:age],
+      # job:params[:job],
+      # password_confirmation:params[:password_confirmation]
+      user_params
       )
     if @user.save
       render json: {users: @user}, :status => :created
@@ -21,5 +22,9 @@ class AuthController < ApplicationController
     else
       render json: {errors: "not found user"}, :status => :unprocessable_entity
     end
+  end
+
+  def user_params
+    params.permit(:username,:password,:password_confirmation)
   end
 end
